@@ -12,12 +12,12 @@
 - This tutorial will use [Bootstrap](https://getbootstrap.com/) for styling, [Jinja](https://jinja.palletsprojects.com/en/2.11.x/) as a template engine, an [SQLite](https://sqlite.org/index.html) for its database
 
 ### Step 1 — Installing Flask
-- Start by creating a conda environment (`flask_blog`) and installing Flask
+- Start by creating a conda environment (`flask_env`) and installing Flask
 ```
-conda create --name flask_blog python=3.7 (if environment doesn't already exist)
-conda install --name flask_blog flask
-conda activate flask_blog
-conda deactivate flask_blog
+conda create --name flask_env python=3.7 (if environment doesn't already exist)
+conda install --name flask_env flask
+conda activate flask_env
+conda deactivate
 ```
 
 ### Step 2 — Creating a Base Application
@@ -85,6 +85,17 @@ flask run
 - For a blog to be up to date, you’ll need to be able to edit your existing posts.
 - This section will guide you through creating a new page in your application to simplify the process of editing a post.
 - `edit.html` is the HTML template for editing an existing blog post.
+
+#### Deleting a Post
+- Sometimes a post no longer needs to be publicly available, which is why the functionality of deleting a post is crucial.
+- In this step you will add the delete functionality to your application.
+
+---
+## Tutorial 2: [How To Serve Flask Applications with Gunicorn and Nginx on CentOS 7](https://www.digitalocean.com/community/tutorials/how-to-serve-flask-applications-with-gunicorn-and-nginx-on-centos-7)
+- I am hoping this tutorial gives me a greater depth of understanding of what all goes into making a nearly production-ready Flask app
+
+
+
 
 
 

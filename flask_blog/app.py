@@ -67,7 +67,7 @@ def post(post_id):
     return render_template('post.html', post=post)
 
 # for creating blog posts
-# /create route will accept both GET and POST requests
+# view function will accept both GET and POST requests
 @app.route('/create', methods=('GET', 'POST'))
 def create():
     # if request is a POST request
@@ -84,14 +84,46 @@ def create():
             conn.close()
             # redirecting to the homepage upon completion
             return redirect(url_for('index'))
-    # GET requests will automatically return this template
+    # GET requests will automatically return blank creation template
     return render_template('create.html')
 
 # for editing blog posts
-# /<int:id>/edit route will accept both GET and POST requests
+# view function will accept both GET and POST requests
+@app.route('/<int:id>/edit', methods=('GET', 'POST'))
+def edit(id):
+    # getting post by id provided as argument to view function
+    post = get_post(id)
 
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
 
+        if not title:
+            flash('Title is required!')
+        else:
+            conn = get_db_connection()
+            conn.execute('UPDATE posts SET title = ?, content = ? WHERE id = ?', (title, content, id))
+            conn.commit()
+            conn.close()
+            # redirect to homepage
+            return redirect(url_for('index'))
+    # GET requests will automatically return edit template filled in with info from post
+    return render_template('edit.html', post=post)
 
+# for deleting blog posts
+# view function only accepts post requests
+# you can access this route via a form that sends a POST request passing in the ID of the post you want to delete
+    # will add this function to the post edit template
+# the function will receive the ID value and use it to get the post from the database with the get_post() function.
+@app.route('/<int:id>/delete', methods=('POST',))
+def delete(id):
+    post = get_post(id)
+    conn = get_db_connection()
+    conn.execute('DELETE FROM posts WHERE id = ?', (id,))
+    conn.commit()
+    conn.close()
+    flash('"{}" was successfully deleted!'.format(post['title']))
+    return redirect(url_for('index'))
 
 
 
